@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyFitnessBuddy.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -30,6 +31,13 @@ namespace ASP.NET_MVC5_Bootstrap3_3_1_LESS.Controllers
         public ActionResult Workout()
         {
             return View();
+        }
+
+        public ActionResult Nutrition()
+        {
+            NutritionModel model = new NutritionModel();
+
+            return View(model);
         }
     }
 }
