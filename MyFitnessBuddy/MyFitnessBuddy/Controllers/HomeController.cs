@@ -10,7 +10,7 @@ namespace ASP.NET_MVC5_Bootstrap3_3_1_LESS.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            return View("Workout");
         }
 
         public ActionResult About()
