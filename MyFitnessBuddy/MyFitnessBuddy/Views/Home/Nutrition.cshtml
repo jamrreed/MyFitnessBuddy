@@ -1,0 +1,81 @@
+﻿@model MyFitnessBuddy.Models.NutritionModel
+@Scripts.Render("~/Scripts/Home/Nutrition.js")
+
+@Html.HiddenFor(model => model.FoodsAll)
+@Html.HiddenFor(model => model.FoodsToday)
+<div class="row" style="margin-top:5px;">
+    <div class="col-xs-2" style="margin-top:7px;">
+        @Html.LabelFor(model => model.Date)
+    </div>
+    <div class="col-xs-10">
+        @Html.TextBoxFor(model => model.Date, new { @class = "form-control", @id = "dateSelected", @type = "date", @data_role = "datebox", @data_options = " {'mode':'flipbox', 'dateFormat':'dd/mm/YYYY' } " })
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<hr class="nutritionDivider" />
+
+<div class="row" style="margin-top:-25px;">
+    <div class="col-xs-12 text-center">
+        <h4>Daily Totals </h4>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-3">Calories</div>
+    <div class="col-xs-3">Fat</div>
+    <div class="col-xs-3">Carb</div>
+    <div class="col-xs-3">Protein</div>
+</div>
+<div class="row">
+    <div class="col-xs-3">@Html.Raw((from r in Model.FoodsToday select r.nCalories).Sum())</div>
+    <div class="col-xs-3">@Html.Raw((from r in Model.FoodsToday select r.nFat).Sum())</div>
+    <div class="col-xs-3">@Html.Raw((from r in Model.FoodsToday select r.nCarb).Sum())</div>
+    <div class="col-xs-3">@Html.Raw((from r in Model.FoodsToday select r.nProtein).Sum())</div>
+</div>
+
+<hr class="nutritionDivider" />
+
+<div class="row">
+    <div class="col-xs-5">Add Meal</div>
+    <div class="col-xs-5">@Html.DropDownListFor(model => model.Time, Model.slTimes)</div>
+</div>
+<div class="row" style="margin-top:15px;">
+    <div class="col-xs-2">Qty:</div>
+    <div class="col-xs-3">@Html.TextBoxFor(model => model.QuantityAdded, new { @style ="width:35px;" })</div>
+    <div class="col-xs-5 text-center">@Html.DropDownListFor(model => model.FoodSelected, Model.slAllFoods, new { @onchange = "onFoodSelectionChanged(this.value)" })</div>
+</div>
+<div class="row" style="margin-top:15px;">
+    <div class="col-xs-3">Calories</div>
+    <div class="col-xs-3">Fat</div>
+    <div class="col-xs-3">Carb</div>
+    <div class="col-xs-3">Protein</div>
+</div>
+<div class="row" style="margin-top:15px;">
+    <div class="col-xs-3" id="foodSelectedCalories">@Html.Raw((from r in Model.FoodsAll select r.nCalories).FirstOrDefault())</div>
+    <div class="col-xs-3" id="foodSelectedFat">@Html.Raw((from r in Model.FoodsAll select r.nFat).FirstOrDefault())</div>
+    <div class="col-xs-3" id="foodSelectedCarb">@Html.Raw((from r in Model.FoodsAll select r.nCarb).FirstOrDefault())</div>
+    <div class="col-xs-3" id="foodSelectedProtein">@Html.Raw((from r in Model.FoodsAll select r.nProtein).FirstOrDefault())</div>
+</div>
+<div class="row" style="margin-top:15px;">
+    <div class="col-xs-12 text-center"><button class="btn btn-success">Add</button></div>
+</div>
+
+<hr class="nutritionDivider" />
+
+<!-- partial views here ></-->
+
+@{
+    foreach (SelectListItem sli in Model.slTimes)
+    {
+        <div class="row">
+            <div class="col-xs-12 text-center">
+                <h4>@sli.Text</h4>
+            </div>
+        </div>
+    
+    }
+}
