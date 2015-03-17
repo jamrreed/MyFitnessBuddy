@@ -1,0 +1,50 @@
+﻿@model MyFitnessBuddy.Models.AllFoodsModel
+
+<div class="row" style="margin-top:5px;">
+    <div class="col-xs-12 text-center" style="margin-top:7px;">
+        <h4>Food Selection</h4>
+    </div>
+    <div class="col-xs-12 text-center">
+        @Html.DropDownListFor(model => model.SelectedFood, Model.slFoods, new { @id="selectedFoodId" })
+    </div>
+</div>
+<div class="row" style="margin-top:10px;">
+    <div class="col-xs-2"></div>
+    <div class="col-xs-3">
+        <button class="btn default" onclick="EditFood()">Edit</button>
+    </div>
+    <div class="col-xs-3">
+        <button class="btn default" onclick="DeleteFood()">Delete</button>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function EditFood()
+    {
+        var val = document.getElementById("selectedFoodId").value;
+        CallAjax("/Home/EditFood", val);
+    }
+    function DeleteFood()
+    {
+        var val = document.getElementById("selectedFoodId").value;
+        CallAjax("/Home/DeleteFood", val);
+    }
+    function CallAjax(strURL, id)
+    {
+        $.ajax({
+            url: strURL,
+            type: "Get",
+            data: "gId=" + id,
+            success: function (data)
+            {
+                document.open();
+                document.write(data);
+                document.close();
+            },
+            error: function (xhr, status, error)
+            {
+
+            }
+        });
+    }
+</script>

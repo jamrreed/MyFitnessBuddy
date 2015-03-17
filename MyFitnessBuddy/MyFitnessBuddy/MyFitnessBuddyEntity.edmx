@@ -16,8 +16,62 @@
           <Property Name="nProtein" Type="decimal" Precision="18" Scale="0" />
           <Property Name="strName" Type="varchar" MaxLength="150" />
         </EntityType>
+        <EntityType Name="FoodEntry">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="gFood" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="gUser" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="strTime" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="nQty" Type="float" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="strName" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="strPassword" Type="nvarchar" MaxLength="25" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_FoodEntry_0">
+          <End Role="Food" Type="Self.Food" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="FoodEntry" Type="Self.FoodEntry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Food">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FoodEntry">
+              <PropertyRef Name="gFood" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FoodEntry_1">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="FoodEntry" Type="Self.FoodEntry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FoodEntry">
+              <PropertyRef Name="gUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="MyFitnessBuddyModelStoreContainer">
           <EntitySet Name="Food" EntityType="Self.Food" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FoodEntry" EntityType="Self.FoodEntry" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_FoodEntry_0" Association="Self.FK_FoodEntry_0">
+            <End Role="Food" EntitySet="Food" />
+            <End Role="FoodEntry" EntitySet="FoodEntry" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FoodEntry_1" Association="Self.FK_FoodEntry_1">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="FoodEntry" EntitySet="FoodEntry" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -33,10 +87,68 @@
           <Property Name="nCarb" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="nProtein" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="strName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="FoodEntry" Relationship="MyFitnessBuddyModel.FK_FoodEntry_0" FromRole="Food" ToRole="FoodEntry" />
         </EntityType>
         <EntityContainer Name="MyFitnessBuddyEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Food" EntityType="Self.Food" />
+          <EntitySet Name="FoodEntry" EntityType="MyFitnessBuddyModel.FoodEntry" />
+          <EntitySet Name="Users" EntityType="MyFitnessBuddyModel.Users" />
+          <AssociationSet Name="FK_FoodEntry_0" Association="MyFitnessBuddyModel.FK_FoodEntry_0">
+            <End Role="Food" EntitySet="Food" />
+            <End Role="FoodEntry" EntitySet="FoodEntry" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FoodEntry_1" Association="MyFitnessBuddyModel.FK_FoodEntry_1">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="FoodEntry" EntitySet="FoodEntry" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="FoodEntry">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="gFood" Type="Guid" Nullable="false" />
+          <Property Name="gUser" Type="Guid" Nullable="false" />
+          <Property Name="strTime" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="nQty" Type="Double" />
+          <NavigationProperty Name="Food" Relationship="MyFitnessBuddyModel.FK_FoodEntry_0" FromRole="FoodEntry" ToRole="Food" />
+          <NavigationProperty Name="Users" Relationship="MyFitnessBuddyModel.FK_FoodEntry_1" FromRole="FoodEntry" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="strName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="strPassword" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="FoodEntry" Relationship="MyFitnessBuddyModel.FK_FoodEntry_1" FromRole="Users" ToRole="FoodEntry" />
+        </EntityType>
+        <Association Name="FK_FoodEntry_0">
+          <End Type="MyFitnessBuddyModel.Food" Role="Food" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="MyFitnessBuddyModel.FoodEntry" Role="FoodEntry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Food">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FoodEntry">
+              <PropertyRef Name="gFood" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FoodEntry_1">
+          <End Type="MyFitnessBuddyModel.Users" Role="Users" Multiplicity="1" />
+          <End Type="MyFitnessBuddyModel.FoodEntry" Role="FoodEntry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FoodEntry">
+              <PropertyRef Name="gUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -52,6 +164,26 @@
                 <ScalarProperty Name="nFat" ColumnName="nFat" />
                 <ScalarProperty Name="nCarb" ColumnName="nCarb" />
                 <ScalarProperty Name="nProtein" ColumnName="nProtein" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FoodEntry">
+            <EntityTypeMapping TypeName="MyFitnessBuddyModel.FoodEntry">
+              <MappingFragment StoreEntitySet="FoodEntry">
+                <ScalarProperty Name="nQty" ColumnName="nQty" />
+                <ScalarProperty Name="strTime" ColumnName="strTime" />
+                <ScalarProperty Name="gUser" ColumnName="gUser" />
+                <ScalarProperty Name="gFood" ColumnName="gFood" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="MyFitnessBuddyModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="strPassword" ColumnName="strPassword" />
+                <ScalarProperty Name="strName" ColumnName="strName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

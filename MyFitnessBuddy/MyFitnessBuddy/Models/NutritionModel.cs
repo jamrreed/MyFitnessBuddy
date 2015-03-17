@@ -24,6 +24,7 @@ namespace MyFitnessBuddy.Models
 
         public List<Food> FoodsAll { get; set; }
         public List<Food> FoodsToday { get; set; }
+        public Dictionary<string, List<Food>> TimesFoodsToday { get; set; }
 
         public SelectList slAllFoods { get; set; }
 
@@ -32,6 +33,7 @@ namespace MyFitnessBuddy.Models
             Date = DateTime.Now.ToShortDateString();
             FoodsAll = new List<Food>();
             FoodsToday = new List<Food>();
+            TimesFoodsToday = new Dictionary<string, List<Food>>();
             SetupTimes();
         }
 
@@ -45,6 +47,10 @@ namespace MyFitnessBuddy.Models
                 "3:00 AM", "3:30 AM", "4:00 AM", "4:30 AM", "5:00 AM", "5:30 AM", "6:00 AM", "6:30 AM", 
             };
             slTimes = new SelectList(lstTimes);
+            foreach (string str in lstTimes)
+            {
+                TimesFoodsToday.Add(str, new List<Food>());
+            }
         }
     }
 }

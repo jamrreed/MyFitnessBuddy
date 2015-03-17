@@ -28,6 +28,92 @@ namespace MyFitnessBuddy.Controllers
             return View();
         }
 
+        public ActionResult Foods()
+        {
+            AllFoodsModel afm = new AllFoodsModel();
+
+            MyFitnessBuddyEntities db = new MyFitnessBuddyEntities();
+            var qryAllFood = from r in db.Food
+                             select r;
+
+            List<Food> lstFood = qryAllFood.ToList();
+
+            afm.slFoods = new SelectList(lstFood, "ID", "strName");
+
+            return View(afm);
+        }
+
+        public ActionResult AddFood()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddFood(Food model)
+        {
+            if (!ModelState.IsValid)
+                return View();
+
+            try
+            {
+
+                MyFitnessBuddyEntities db = new MyFitnessBuddyEntities();
+                model.ID = Guid.NewGuid();
+                db.Food.Add(model);
+                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return View();
+        }
+
+        public ActionResult EditFood(Guid gId)
+        {
+            MyFitnessBuddyEntities db = new MyFitnessBuddyEntities();
+            var qryFood = from r in db.Food
+                          where r.ID.Equals(gId)
+                          select r;
+
+            if (qryFood.FirstOrDefault() != null)
+                return View(qryFood.First());
+            else
+                return View();
+        }
+
+        [HttpPost]
+        public ActionResult EditFood(Food model)
+        {
+            if (!ModelState.IsValid)
+                return View();
+
+            try
+            {
+
+                MyFitnessBuddyEntities db = new MyFitnessBuddyEntities();
+
+                var qryForFood = from r in db.Food
+                                 where r.ID.Equals(model.ID)
+                                 select r;
+                
+                qryForFood.First().nCalories = model.nCalories;
+                qryForFood.First().nCarb = model.nCarb;
+                qryForFood.First().nFat = model.nFat;
+                qryForFood.First().nProtein = model.nProtein;
+                qryForFood.First().strName = model.strName;
+
+                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return View();
+        }
+        
         public ActionResult Workout()
         {
             return View();

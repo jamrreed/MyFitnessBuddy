@@ -216,10 +216,14 @@
     <Compile Include="Food.cs">
       <DependentUpon>MyFitnessBuddyEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="FoodEntry.cs">
+      <DependentUpon>MyFitnessBuddyEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AllFoodsModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\NutritionModel.cs" />
     <Compile Include="MyFitnessBuddyEntity.Context.cs">
@@ -239,6 +243,9 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Users.cs">
+      <DependentUpon>MyFitnessBuddyEntity.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
@@ -388,6 +395,9 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\Workout.cshtml" />
+    <Content Include="Views\Home\AddFood.cshtml" />
+    <Content Include="Views\Home\EditFood.cshtml" />
+    <Content Include="Views\Home\Foods.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

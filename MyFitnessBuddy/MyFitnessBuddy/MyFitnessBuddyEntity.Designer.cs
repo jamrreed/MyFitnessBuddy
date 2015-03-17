@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\randall.reed\Documents\GitHub\MyFitnessBuddy\MyFitnessBuddy\MyFitnessBuddy\MyFitnessBuddyEntity.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\Luciferis\Documents\GitHub\MyFitnessBuddy\MyFitnessBuddy\MyFitnessBuddy\MyFitnessBuddyEntity.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

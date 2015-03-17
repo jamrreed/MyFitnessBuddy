@@ -26,5 +26,7 @@ namespace MyFitnessBuddy
         }
     
         public virtual DbSet<Food> Food { get; set; }
+        public virtual DbSet<FoodEntry> FoodEntry { get; set; }
+        public virtual DbSet<Users> Users { get; set; }
     }
 }

@@ -6,6 +6,10 @@
     <edmx:Diagrams>
       <Diagram DiagramId="6ee53366eca34d9db68f8db98746b9b2" Name="Diagram1">
         <EntityTypeShape EntityType="MyFitnessBuddyModel.Food" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyFitnessBuddyModel.FoodEntry" Width="1.5" PointX="3" PointY="0.75" />
+        <EntityTypeShape EntityType="MyFitnessBuddyModel.Users" Width="1.5" PointX="0.75" PointY="4" />
+        <AssociationConnector Association="MyFitnessBuddyModel.FK_FoodEntry_0" />
+        <AssociationConnector Association="MyFitnessBuddyModel.FK_FoodEntry_1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

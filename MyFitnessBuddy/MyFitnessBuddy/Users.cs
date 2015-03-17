@@ -12,19 +12,16 @@ namespace MyFitnessBuddy
     using System;
     using System.Collections.Generic;
     
-    public partial class Food
+    public partial class Users
     {
-        public Food()
+        public Users()
         {
             this.FoodEntry = new HashSet<FoodEntry>();
         }
     
         public System.Guid ID { get; set; }
-        public Nullable<decimal> nCalories { get; set; }
-        public Nullable<decimal> nFat { get; set; }
-        public Nullable<decimal> nCarb { get; set; }
-        public Nullable<decimal> nProtein { get; set; }
         public string strName { get; set; }
+        public string strPassword { get; set; }
     
         public virtual ICollection<FoodEntry> FoodEntry { get; set; }
     }

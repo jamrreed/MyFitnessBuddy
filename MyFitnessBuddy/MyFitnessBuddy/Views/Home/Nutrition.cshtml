@@ -67,15 +67,20 @@
 <hr class="nutritionDivider" />
 
 <!-- partial views here ></-->
-
-@{
-    foreach (SelectListItem sli in Model.slTimes)
-    {
-        <div class="row">
-            <div class="col-xs-12 text-center">
-                <h4>@sli.Text</h4>
+<div id="divTimesFoods">
+    @{
+        foreach (KeyValuePair<string, List<Food>> kvp in Model.TimesFoodsToday)
+        {
+            <div class="row">
+                <div class="col-xs-12 text-center">
+                    <h4>@kvp.Key</h4>
+                </div>
+                @foreach (Food fd in kvp.Value)
+                {
+                    <p>@fd.strName</p>
+                }
             </div>
-        </div>
-    
+
+        }
     }
-}
+</div>
